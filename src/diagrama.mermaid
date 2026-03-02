@@ -1,0 +1,21 @@
+flowchart TD
+  A([Inicio]) --> B[runall.ps1]
+  B --> C{¿Existe entorno conda<br/>taller3?}
+  C -->|No| D[conda env create -f<br/>environment.yml]
+  C -->|Sí| E[Activar/usar entorno<br/>taller3]
+  D --> E
+
+  %% Etapa 1: Simulación
+  E --> F[scripts/01_simulate.py<br/>src/simulate.py]
+  F --> G[(data/raw/solicitudes_crudas.csv)]
+
+  %% Etapa 2: Limpieza + análisis tabular
+  G --> H[scripts/02_analysis.py<br/>src/clean.py + src/analysis.py]
+  H --> I[(data/processed/solicitudes_limpias.csv)]
+  H --> J[(results/tables/tabla_resumen_region.csv)]
+
+  %% Etapa 3: Visualización
+  I --> K[scripts/03_visualization.py<br/>src/analysis.py]
+  K --> L[(results/figures/figura_mora_quintil.png)]
+
+  L --> M([Fin])
